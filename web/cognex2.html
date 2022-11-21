@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv='cache-control' content='no-cache'>
+		<meta http-equiv='expires' content='0'>
+		<meta http-equiv='pragma' content='no-cache'>
+		<meta id="viewport" name="viewport" content="initial-scale=0.75, user-scalable=0, minimum-scale=0.75, maximum-scale=0.75" />
+		<!--viewport above is set to not be scalable by the user although not all browsers adhere to that-->
+			
+		<title>cmbWeb sample app</title>
+        <style>
+            .result-table {
+                text-align: center;
+                max-width: 75vw;
+                margin: 30px auto auto auto;
+            }
+            .scanner {
+                margin: auto;
+                width: 80vw;
+                height:30vh;
+            }      
+            .split-view-result-entries {
+              height: 70vh;
+              overflow: auto;
+              background: #ffffff;
+            }
+          </style>
+	</head>
+    <script src="/cmbsdk-cmbWeb/cmbweb.js"></script>
+    <script type="text/javascript" src="/cmbsdk-cmbWeb/MWBConfig_wa.js"></script>
+    <script type="text/javascript" src="/cmbsdk-cmbWeb/sampleApp/sample_app_UI.js"></script>
+    <link rel="stylesheet" type="text/css" href="/cmbsdk-cmbWeb/sampleApp/sample-app-style.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+	<body>
+        <div>
+            <!--<div id="cmbweb-preview-container" style="border:1px solid; position:fixed; top:1%; left:1%; width:80%; height:30%; background-color:gray;">-->
+            <div id="cmbweb-preview-container" class="scanner"></div>
+            <div id="split-view-result" class="result-table">
+                    <div id="split-view-result-entries" class="split-view-result-entries">
+                    <p>123456</p>
+                </div>
+                <button id="clear-results-button" onclick="splitViewClearResults();">Clear Results</button>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            //document.addEventListener("cameraPreviewClosed", function(e) {
+            //    console.log(e.detail); //Prints "Camera preview closed."
+            //    startScanning();
+            //});
+
+            let counter = 0;
+            let results = [];
+      
+            const pageElements = {
+              splitView: {
+                result: document.getElementById("split-view-result"),
+                entries: document.getElementById("split-view-result-entries"),
+                clearButton: document.getElementById("clear-results-button"),
+              },
+            };
+            (async()=>{
+                try {
+                    startScanning();
+                } catch (ex) {
+                    errMsg = ex.message||ex;
+                    console.error(errMsg);
+                    alert(errMsg);
+                }
+            })();
+
+            async function startScanning(){
+                try{
+                    mwbScanner.startScanning(function(res){
+                        //show result in console
+                        if(res.type=="Error"){
+                            console.log(res.errorDetails);
+                        }else if(res.type=="Cancel"){
+                            console.log("No Barcode.");
+                        }else if(res.type=="NoResult"){
+                            console.log("No Barcode.");
+                        }else if(res.type=="Multicode"){                            
+                            let resultCodes_string = "";
+                            let foundCodes = res.count;
+                            for (let i = 0; i < foundCodes; i++)
+                            {
+                                mwbScanner.beep();
+                                resultCodes_string += res.codes[i].type + '=>' + res.codes[i].code + '; ';
+                                const entry = document.createElement("div");
+                                entry.className = "result-entry";
+                                entry.textContent = "Multicode: { "+resultCodes_string + " }";
+                                pageElements.splitView.entries.appendChild(entry);
+                            }
+                            
+                            //console.log("Multicode:"+resultCodes_string);
+                            //alert(res.type+'\n\n'+resultCodes_string)
+                        }else{
+                            mwbScanner.beep();
+                            console.log(res.type + '\n' + res.code);
+                            //alert(res.type + '\n' + res.code);
+                            const entry = document.createElement("div");
+                            entry.className = "result-entry";
+                            entry.textContent = res.type + ': ' + res.code;
+                            pageElements.splitView.entries.appendChild(entry);
+                        }
+                        //alert(res.code);
+                        mwbScanner.resumeScanning();
+                    });
+                }catch(err){
+                    console.log(err);
+                    alert(err);                    
+                }
+                //mwbScanner.resumeScanning();
+
+            };
+
+
+
+        </script>
+	</body>
+</html>

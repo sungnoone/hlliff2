@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dynamsoft測試範例 - 製通單結案</title>
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/dynamsoft-javascript-barcode/dist/dbr.js"></script>
+    <script src="/dynamsoft-camera-enhancer-js/dist/dce.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid" style="height:100vh; width:100vw;">
+        <input type="text" id="result" readonly="true" placeholder="The Last Read Barcode" class='result'>
+        <button type="button" class="result_button">結案</button>
+        <p></p>
+        <div id="UIElement" class="#UIElement">                        
+        </div>
+        <div id="enhancerUIContainer"></div>
+        <iframe id="embaded_html" src="" title="訂單內容" allowfullscreen></iframe>
+        <!--<div id="result_html" class="ratio ratio-16x9">            
+            
+        </div>-->
+
+            
+    </div>
+    <script>
+        //Dynamsoft license
+        Dynamsoft.DBR.BarcodeReader.license = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAxMjM1NDYyLXIxNjY4NzQ4Mzc0Iiwib3JnYW5pemF0aW9uSUQiOiIxMDEyMzU0NjIiLCJtYWluU2VydmVyVVJMIjoiaHR0cHM6Ly9tbHRzLmR5bmFtc29mdC5jb20vIiwic3RhbmRieVNlcnZlclVSTCI6Imh0dHBzOi8vc2x0cy5keW5hbXNvZnQuY29tLyIsImNoZWNrQ29kZSI6LTc0ODY5NjkwMH0=";
+        // scanner for decoding video
+        (async()=>{
+            let enhancer = await Dynamsoft.DCE.CameraEnhancer.createInstance();
+            let cameras = await enhancer.getAllCameras();
+            //檢查是否有攝影機，如果沒有攝影機不執行Dynamsoft.DBR，以免佔用授權。
+            if (cameras.length) {
+                //await enhancer.selectCamera(cameras[0]);
+                const scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();    
+                let scanSettings = await scanner.getScanSettings();
+                //scanSettings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_CODE_128 | Dynamsoft.DBR.EnumBarcodeFormat.BF_QR_CODE;
+                //scanSettings.expectedBarcodesCount = 0;
+                //scanSettings.intervalTime = 100; // 100ms
+                scanSettings.whenToPlaySoundforSuccessfulRead = "unique";
+                scanSettings.whenToVibrateforSuccessfulRead = "unique";
+                //scanSettings.duplicateForgetTime = 3000; // 3s
+                scanner.dce._bWebGLSupported = true;
+                await scanner.updateScanSettings(scanSettings);
+                //await scanner.updateRuntimeSettings("speed");
+                await scanner.setVideoFit('cover');  
+    
+                document.getElementById('UIElement').appendChild(scanner.getUIElement());
+    
+                scanner.onFrameRead = result=>{
+                    if(result.length>0){
+    
+                    }
+                };
+                scanner.onUniqueRead = (txt,result)=> {
+                    document.getElementById('result').value = result.barcodeFormatString + ":" + txt;
+                    let embaded_html_url = "https://station9.hanlin.com.tw/product/"+ txt +"/1";
+                    //document.getElementById('result_html').innerHTML = '<iframe src="https://station9.hanlin.com.tw/product/'+ txt +'/1" title="訂單內容" allowfullscreen></iframe>'
+                    document.getElementById('embaded_html').setAttribute("src", embaded_html_url);
+                };
+                await scanner.show();
+            }else{
+                alert("Hanlin::沒有攝影機");
+                return;
+            }
+
+        })();
+
+    </script>
+<style>
+    #UIElement {
+        margin: 2vmin auto;
+        text-align: center;
+        font-size: medium;
+        height: 30vh;
+        width: 90vw;
+    }
+
+    .result {
+        margin: 2vmin auto;
+        text-align: left;
+        font-size: smaller;
+        height: 5vh;
+        width: 70vw;
+    }
+
+    .result_button {
+        margin: 2vmin auto;
+        text-align: left;
+        font-size: medium;
+        color: red;
+        height: 5vh;
+        width: 20vw;
+    }
+
+    .result_html {
+        margin: 2vmin auto;
+        text-align: left;
+        font-size: smaller;
+        height: 100vh;
+        width: 90vw;
+    }
+
+
+
+</style>
+
+</body>
+
+</html>

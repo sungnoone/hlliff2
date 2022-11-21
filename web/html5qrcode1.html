@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Html5QrcodeScanner - 製通單結案</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+        <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/html5-qrcode/html5-qrcode.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="container">
+            <input type="text" id="result" readonly="true" placeholder="The Last Read Barcode" >
+            <p></p>
+            <div id="qr-reader" style="margin:auto; width:80vw; height:auto;">
+            </div>
+
+            <div id="result_html" class="ratio ratio-16x9">
+                
+              </div>
+
+        </div>
+
+        <script>
+            function onScanSuccess(decodedText, decodedResult) {
+                console.log('Code scanned = ${decodedText}', decodedResult);
+                document.getElementById('result').value = decodedText;
+            }
+            // Square QR box with edge size = 70% of the smaller edge of the viewfinder.
+            /*let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
+                let minEdgePercentage = 0.7; // 70%
+                let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+                let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+                return {
+                    width: qrboxSize,
+                    height: qrboxSize
+                };                
+            }
+
+            let conf = {
+                fps:100,
+                qrbox: qrboxFunction,
+                supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+                experimentalFeatures: {
+                    useBarCodeDetectorIfSupported: false,
+                }
+            }*/
+            //var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", conf);            
+            //html5QrcodeScanner.render(onScanSuccess);
+
+            const html5QrCode = new Html5Qrcode("qr-reader");
+            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+                console.log('Code scanned = ${decodedText}', decodedResult);
+                document.getElementById('result').value = decodedText;
+                document.getElementById('result_html').innerHTML = '<iframe src="https://station9.hanlin.com.tw/product/'+ decodedText +'/1" title="訂單內容" allowfullscreen></iframe>'
+                //fetch().then().catch();
+
+            };
+            let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
+                let minEdgePercentage = 0.7; // 70%
+                let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+                let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+                return {
+                    width: qrboxSize,
+                    height: qrboxSize
+                };                
+            }
+
+            const config = { 
+                fps:100,
+                qrbox: qrboxFunction,
+                supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+                experimentalFeatures: {
+                    useBarCodeDetectorIfSupported: false,
+                }
+            };            
+            // If you want to prefer back camera
+            html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+        </script>
+
+    </body>
+</html>

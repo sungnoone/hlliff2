@@ -1,0 +1,1 @@
+"ean13","upca","ean8","upce","two-digit-add-on","five-digit-add-on","msi-plessey","databar","databar-expanded","databar-limited","codabar","code11","code32","code39","code93","code128","code25","itf","data-matrix","aztec","pdf417","micropdf417","maxicode","qr","microqr","kix","rm4scc","dotcode"

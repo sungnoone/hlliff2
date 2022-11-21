@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!--<script src="https://cdn.jsdelivr.net/npm/scandit-sdk@5.x"></script>-->
+        <script src="/scandit-sdk/build/browser/index.min.js"></script>
+        <div id="scandit-barcode-picker" style="max-width: 70vh; max-height: 50vh ;">Scan3</div>
+        <div id="booksList">
+          <p> Books List </p>
+        </div>
+
+
+        <script>
+            ScanditSDK.configure("AWlhJj06H3R+PC4ARBZW9gwAfJjxMrHBmVlSTwNdtu9mdQAUSQRUwH9TV1VvDYRZeTe2wRhZVz3GU8LNMGLbx+NDdwPfXNOznGl3EeJldemJTDQY6X8p/E5yDZXZXNTacjOC0CU8xfBEONQnczUg/Q1O3jDXfR5Kum5seFlFR0F5WhbOZXCLF0JChN4ySeuW2FPYpi5+/slDdXLN8RCTzP4d2goUQJHHGU+6dHldnGl5RotBeC+7RE93smjkYWls2mYtlstBEuUrTRzx80twgc5774D2QSTVBiqLRllfR09TK38CtHZu6wdHSHtvWW5UbG8ICE10+TgaXllbn0kz+ANle0ubXriB+Ek5YB122PuxREfOE2gxAy1eC7mUYVU20HOqwB8b32prA7ZM+TCU73s9R/vXSny9ZQbhTeYySZUINkhpYndP2GxMBbQkTHJWy1hMw9FovOLRHi1+pzGnW/hs/KFuY3EGH19oT8cb0HmvkGvVoNITYKvZjjMGAvPPy2YKvaA32bquPrIkydfmjYXjkjg09E6atirjBwRS1pfmlSWPEcNyS3UWJ432jlBg0Is3At1f3z6ZLx6Upkr+I/lS8+jjDyuMU071be9oAKBZDGaouO3VhYWQSwTHYccSqzxCVGHDk2S3esOQLbYqVquSNzMdi9q2vdzL9Ibct11pYLIu29+bN3Rlp5eX02Fvg8mUqvM9XLXIBAT9agCUXK+6mS49aCK4X7YevhpmtG46njya9lXq6YhzxlUe5FdutngfVDicU2xn015kbObOl/DpGpVuWmRmFyyiGOB5y7nXsyomzIZFrH6nDr2fVVq4TEf06I1UEghUClGuAPdxU7JIIOT/jnJCBP0wHWJk6dQSYtxzrT09qQISfXnGseSGwt10xc0DHMmO+s3TUqnPbBwa5hYv5/LMLUJzdHrT2SOSF3O07m9SMECBEt6xaKDFpo9HGALLniuLl7NIKWUD8N11wjqqT58xMvf4oSKFlUmHmcnALgUAiPCE0Dg11SAZBK7xmMsr6a3s47BDV8e+HF8pJRffbEHYWJRvSMfKjHAYlsL/AltOEKpoWAUAbA+iDifMMdtOaGALqgGiGPUbWQ0ftM2+lwHBeV7AyvMNJm+hCqQxo91yRLIQ7cFqIrBYUW8kpiQjDzuE7DUvtQ==", {
+                engineLocation: "/scandit-sdk/build/",
+                playSoundOnScan: true,
+                vibrateOnScan: true,
+              })
+                .then(() => {
+                  return ScanditSDK.BarcodePicker.create(document.getElementById("scandit-barcode-picker"), {
+                    // enable some common symbologies
+                    scanSettings: new ScanditSDK.ScanSettings({ enabledSymbologies: ["ean13","upca","ean8","upce","two-digit-add-on","five-digit-add-on","msi-plessey","databar","databar-expanded","databar-limited","codabar","code11","code32","code39","code93","code128","code25","itf","data-matrix","aztec","pdf417","micropdf417","maxicode","qr","microqr","kix","rm4scc","dotcode"] }),
+                  });
+                })
+                .then((barcodePicker) => {
+                  // barcodePicker is ready here, show a message every time a barcode is scanned
+                  barcodePicker.on("scan", (scanResult) => {
+                    alert(scanResult.barcodes[0].data);
+                  });
+                  barcodePicker.on("ready", () => {
+                    alert("Ready");
+                  });
+                  barcodePicker.on("scanError", (error) => {
+                    alert(error);
+                  });
+                })
+                .catch((err) => {
+                  alert("error");
+                });
+
+        </script>
+
+    </body>
+</html>

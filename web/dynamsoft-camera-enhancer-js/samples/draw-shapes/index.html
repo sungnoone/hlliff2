@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@3.1.0/dist/dce.js"></script>
+    <title>drawing-shapes</title>
+  </head>
+  <body>
+    <select id="select-shapes">
+      <option value="rect">rectangle</option>
+      <option value="polygon">polygon</option>
+      <option value="arc">arc</option>
+      <option value="line">line</option>
+      <option value="text">text</option>
+      <option value="image">image</option>
+    </select>
+    <button id="btn-add-shape">add shape</button>
+    <button id="btn-remove-all-shapes">remove all shapes</button>
+    <br />
+    <button id="btn-use-custom-style">use custom style</button>
+    <button id="btn-switch-mode">switch mode</button>
+    <label id="label-mode"></label>
+    <div id="div-ui-container" style="width: 100%; height: 70vh"></div>
+    <script>
+      const lable = document.querySelector("#label-mode");
+      let cameraEnhancer = null;
+      let drawingLayer = null;
+
+      (async () => {
+        cameraEnhancer = await Dynamsoft.DCE.CameraEnhancer.createInstance();
+        await cameraEnhancer.open();
+        document
+          .querySelector("#div-ui-container")
+          .appendChild(cameraEnhancer.getUIElement());
+        drawingLayer = cameraEnhancer.createDrawingLayer();
+        lable.textContent = drawingLayer.getMode();
+      })();
+
+      document.querySelector("#btn-add-shape").addEventListener("click", () => {
+        if (!drawingLayer) {
+          console.error(`The initialization is not complete.`);
+          return;
+        }
+        const shape = document.querySelector("#select-shapes").value;
+        switch (shape) {
+          case "rect":
+            {
+              const x = 0,
+                y = 0,
+                width = 100,
+                height = 200;
+              const rect = new Dynamsoft.DCE.DrawingItem.DT_Rect(
+                x,
+                y,
+                width,
+                height
+              );
+              drawingLayer.addDrawingItems([rect]);
+            }
+            break;
+          case "polygon":
+            {
+              const points = [
+                {
+                  x: 200,
+                  y: 200,
+                },
+                {
+                  x: 400,
+                  y: 150,
+                },
+                {
+                  x: 500,
+                  y: 400,
+                },
+                {
+                  x: 200,
+                  y: 300,
+                },
+              ];
+              const polygon = new Dynamsoft.DCE.DrawingItem.DT_Polygon(points);
+              drawingLayer.addDrawingItems([polygon]);
+            }
+            break;
+          case "arc":
+            {
+              const x = 100,
+                y = 0,
+                radius = 50,
+                startAngle = 0,
+                endAngle = 125;
+              const arc = new Dynamsoft.DCE.DrawingItem.DT_Arc(
+                x,
+                y,
+                radius,
+                startAngle,
+                endAngle
+              );
+              drawingLayer.addDrawingItems([arc]);
+            }
+            break;
+          case "line":
+            {
+              const startPoint = { x: 400, y: 100 },
+                endPoint = { x: 600, y: 300 };
+              const line = new Dynamsoft.DCE.DrawingItem.DT_Line(
+                startPoint,
+                endPoint
+              );
+              drawingLayer.addDrawingItems([line]);
+            }
+            break;
+          case "text":
+            {
+              const content = "I am a Text.",
+                x = 700,
+                y = 100;
+              const text = new Dynamsoft.DCE.DrawingItem.DT_Text(content, x, y, 200);
+              drawingLayer.addDrawingItems([text]);
+            }
+            break;
+          case "image":
+            {
+              const content = new Image(192, 192),
+                x = 900,
+                y = 200;
+              content.src = "image.png";
+              content.decode().then(() => {
+                const image = new Dynamsoft.DCE.DrawingItem.DT_Image(
+                  content,
+                  x,
+                  y
+                );
+                drawingLayer.addDrawingItems([image]);
+              });
+            }
+            break;
+          default:
+            break;
+        }
+      });
+
+      document
+        .querySelector("#btn-remove-all-shapes")
+        .addEventListener("click", () => {
+          if (!drawingLayer) {
+            console.error(`The initialization is not complete.`);
+            return;
+          }
+          drawingLayer.clearDrawingItems();
+        });
+
+      document
+        .querySelector("#btn-use-custom-style")
+        .addEventListener("click", () => {
+          if (!drawingLayer) {
+            console.error(`The initialization is not complete.`);
+            return;
+          }
+          const styleDefinition = {
+            lineWidth: 5,
+            fillStyle: "rgba(254, 180, 32, 0.3)",
+            strokeStyle: "rgba(254, 180, 32, 0.9)",
+            paintMode: "strokeAndFill",
+            fontFamily: "sans-serif",
+            fontSize: 20,
+          };
+          const styleId = cameraEnhancer.createDrawingStyle(styleDefinition);
+          drawingLayer.setDrawingStyle(styleId);
+        });
+
+      document
+        .querySelector("#btn-switch-mode")
+        .addEventListener("click", () => {
+          if (!drawingLayer) {
+            console.error(`The initialization is not complete.`);
+            return;
+          }
+          if (drawingLayer.getMode() === "viewer") {
+            drawingLayer.setMode("editor");
+          } else if (drawingLayer.getMode() === "editor") {
+            drawingLayer.setMode("viewer");
+          }
+          lable.textContent = drawingLayer.getMode();
+        });
+    </script>
+  </body>
+</html>

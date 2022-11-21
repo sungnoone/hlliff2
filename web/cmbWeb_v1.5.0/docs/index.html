@@ -1,0 +1,598 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>cmbWeb</title><meta name="description" content="Documentation for cmbWeb"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">cmbWeb</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>cmbWeb</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#cognex-mobile-barcode-scanner-web-sdk" id="cognex-mobile-barcode-scanner-web-sdk" style="color: inherit; text-decoration: none;">
+  <h1>Cognex Mobile Barcode Scanner Web SDK</h1>
+</a>
+<p>This programmers API documentation is based on a TypeScript interface for our JavaScript library to better describe method signatures and expected parameter types.</p>
+<br>
+
+
+<a href="#documentation-and-integration-info" id="documentation-and-integration-info" style="color: inherit; text-decoration: none;">
+  <h2>Documentation and integration info</h2>
+</a>
+<p>The cmbWeb documentation and integration info is available on this page (jump to <a href="#documentation-contents">Documentation Contents</a>)</p>
+<blockquote>
+<p><strong>Note</strong>: Documentation is also available on <a href="https://cmbdn.cognex.com/knowledge/cognex-mobile-barcode-sdk-for-web">cmbDN</a> and will continue to be for a while, but ultimately documentation will only be available here.</p>
+</blockquote>
+
+<a href="#api-methods" id="api-methods" style="color: inherit; text-decoration: none;">
+  <h2>API Methods</h2>
+</a>
+<p>All of the API methods can be found <a href="interfaces/mwbScanner.html">here</a>. Usage and examples can be found <a href="#usage--exposed-api-methods">here</a></p>
+
+<a href="#configuration-methods" id="configuration-methods" style="color: inherit; text-decoration: none;">
+  <h2>Configuration Methods</h2>
+</a>
+<p>All of the configuration methods, usage and examples can be found can be found <a href="interfaces/BarcodeScanner.html">here</a></p>
+
+<a href="#changelog" id="changelog" style="color: inherit; text-decoration: none;">
+  <h2>Changelog</h2>
+</a>
+<p>Detailed changelog can be found on our <a href="https://cmbdn.cognex.com/download/changelog/cmb/cmbweb-web-assembly">developer network site</a></p>
+<br>
+
+<hr>
+
+<a href="#documentation-contents" id="documentation-contents" style="color: inherit; text-decoration: none;">
+  <h4>Documentation Contents</h4>
+</a>
+<p><a href="#requirements">Requirements</a>
+<br> <a href="#installation-overview">Installation overview</a>
+<br> <a href="#installation-with-plain-js">Installation with plain JS</a>
+<br> <a href="#installation-with-webpack">Installation with Webpack</a>
+<br> <a href="#installation-with-webpack-inline-wasm">Installation with Webpack (inline wasm)</a>
+<br> <a href="#installation-with-npm">Installation with npm</a>
+<br> <a href="#integration-with-blazor-no-blazor-ui">Integration with Blazor (no Blazor UI)</a>
+<br> <a href="#integration-with-reactjs">Integration with ReactJS</a>
+<br> <a href="#integration-with-angular">Integration with Angular</a>
+<br> <a href="#configuration">Configuration</a>
+<br>   <a href="#subscribing-to-scannermoduleloaded-event">Subscribing to scannerModuleLoaded event</a>
+<br>   <a href="#getting-available-cameras-and-setting-the-desired-camera">Getting available cameras and setting the desired camera</a>
+<br>   <a href="#enabling-the-camera-switcher-on-the-camerapreview">Enabling the camera switcher on the cameraPreview</a>
+<br>   <a href="#setting-a-default-callback-method">Setting a default callback method</a>
+<br>   <a href="#configuring-settings">Configuring settings</a>
+<br> <a href="#usage--exposed-api-methods">Usage | Exposed API Methods</a>
+<br> <a href="#licensing-the-sdk">Licensing the SDK</a>
+<br>   <a href="#configuring-the-license-image-pathname">Configuring the license path / name</a>
+<br>   <a href="#obtaining-and-configuring-a-license">Obtaining and configuring a license</a>
+<br> <a href="#sample-app">Sample app</a>
+<br> <a href="#performance-and-browser-support">Performance and Browser Support</a>
+<br>   <a href="#web-vs-native-performance">Web vs native performance</a></p>
+<hr>
+
+<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
+  <h2>Requirements</h2>
+</a>
+<p><strong>Server-side</strong>: A secure HTTPS connection on the server, which hosts the web application.</p>
+<p><strong>Client-side</strong>: Latest versions of all major browsers: Chrome, Firefox, Safari, Edge, and Opera.
+<br> Grant permission for the site to access the camera if necessary.</p>
+
+<a href="#installation-overview" id="installation-overview" style="color: inherit; text-decoration: none;">
+  <h2>Installation overview</h2>
+</a>
+<p>The cmbWeb release comes in multiple variants:</p>
+<ol>
+<li>plain/vanilla js     &nbsp;        - front_end directory of the <a href="https://cmbdn.cognex.com/download#Platforms">cmbWeb download</a></li>
+<li>webpack         &nbsp;&nbsp;          - webpack directory of the cmbWeb download</li>
+<li>webpack inline                         - webpack_inline directory of the cmbWeb download</li>
+<li>npm package     &nbsp;&nbsp;            - <a href="https://www.npmjs.com/package/cmbsdk-cmbweb">https://www.npmjs.com/package/cmbsdk-cmbweb</a></li>
+</ol>
+<p>Main differences between the multiple variants are as follows:</p>
+<ul>
+<li>Plain / Vanilla JS can run directly in the browser. Its suitable for quickly trying things out.</li>
+<li>The webpack and webpack inline variants need to be built (i.e. packaged, bundled) first. Most (but not all) of the files cmbWeb comes with will be bundled, thus the resulting solution will be more compact.
+In the case of webpack inline, the index.wasm file is embedded, thus you don&#39;t need to worry about loading it.</li>
+<li>The cmbsdk-cmbweb npm package can run directly in the browser, or it can be used as a nodejs module. All of the files cmbWeb comes with are embedded in a single JS file so you only need to use one file for cmbWeb and one more for configuring it.</li>
+</ul>
+<p>Difference between using a solution with the index.wasm file or having it embedded:</p>
+<ul>
+<li>Plain / Vanilla JS and webpack have a setWasmPath method in the MWBConfig_wa.js file, where you can specify a different location for the index.wasm file, whereas webpack inline and the npm package embed it, thus they don&#39;t have the setWasmPath method.</li>
+<li>Having the index.wasm file embedded means you don&#39;t need to worry about loading it (e.g. having the correct &#39;application/wasm&#39; MIME type on your server, compatibility in different environments, setting the correct path, etc.), but this comes at the cost of a larger size, about 33% more for the embedded format.</li>
+</ul>
+<p>The one resource that does not come embedded in any variant is the licensing image; all variants expect to load the licensing image - this can be changed via the mwbScanner.setIcon method already present in the MWBConfig_wa.js file (see <a href="#configuring-the-license-image-pathname">Configuring the license image</a>).</p>
+<p>You can go over the installation details below for each variant.</p>
+
+<a href="#installation-with-plain-js" id="installation-with-plain-js" style="color: inherit; text-decoration: none;">
+  <h2>Installation with plain JS</h2>
+</a>
+<p>Place the following files into your web application:</p>
+<ul>
+<li>assets (icons directory)</li>
+<li>barcode-scanner-preview-style.css</li>
+<li>cognex_icon.png</li>
+<li>index.html                                            // Example</li>
+<li>index.js</li>
+<li>index.wasm</li>
+<li>main.js</li>
+<li>MWBConfig_wa.js</li>
+<li>MWBScanner_wa.js</li>
+<li>sdk_modular.js</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: The index.html page is not part of the cmbWEB SDK. It serves only as an example of scripts to include and usage of the exposed API methods.</p>
+</blockquote>
+<p>Include the following scripts on the index.html page:</p>
+<pre><code class="language-html"><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;MWBScanner_wa.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;MWBConfig_wa.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;sdk_modular.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;main.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">async</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;index.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span>
+</code></pre>
+
+<a href="#installation-with-webpack" id="installation-with-webpack" style="color: inherit; text-decoration: none;">
+  <h2>Installation with Webpack</h2>
+</a>
+<p>1. Call webpack from the project directory. This builds the source files from <em>/src</em> into a <em>bundle.js</em> file and places it into the <em>/dist</em> directory.</p>
+<p>2. The <em>./src/main.js</em> file serves as an entry point. It contains an example of how to use the cmbWEB SDK. The other files in the <em>/src</em> directory are part of the SDK.</p>
+<p>The <em>/dist</em> directory contains all the necessary files:</p>
+<ul>
+<li>assets (icons directory)</li>
+<li>cognex_icon.png</li>
+<li>bundle.js                                             // Built with webpack</li>
+<li>index.html                                            // Example</li>
+<li>index.js</li>
+<li>index.wasm</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: The index.html page is not part of the cmbWEB SDK. It serves only as an example of scripts to include and usage of the exposed API methods.</p>
+</blockquote>
+<p>3. Include the following scripts on the page:</p>
+<pre><code class="language-html"><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;bundle.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;index.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span>
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: index.js (global scope) and index.wasm have to be present.</p>
+</blockquote>
+<p>The structure of the final solution should be much like the one in the <em>/dist</em> directory.</p>
+<ul>
+<li>It&#39;s also important where the page, <em>index.html</em> in this example, that includes <em>index.js</em> and the webpack built file, <em>bundle.js</em> in this case, is located <strong>in relation to</strong> <em>index.wasm</em> and <em>cognex_icon.png</em>.<ul>
+<li>Make sure that the index.html, index.wasm, and cognex_icon.png files are in the same directory, as the index.js and bundle.js files expect to find them in the directory of the HTML page.</li>
+<li>This is true even if index.js and bundle.js reside in a different directory - they still expect index.wasm and cognex_icon.png to be in the directory of the HTML page they are included in.</li>
+<li>If you wish to change this you can do so by specifying another path through the mwbScanner.setIcon and setWasmPath methods respectively.</li>
+</ul>
+</li>
+<li>The path of <em>index.wasm</em> can be set through the return statement of the <em>setWasmPath</em> method in MWBConfig_wa.js. In the webpack version this method (that is, the return of it) should be used as an argument:</li>
+</ul>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-14">MWB</span><span class="hl-1">.</span><span class="hl-2">setWasmPath</span><span class="hl-1">(</span><span class="hl-3">MWBCfg</span><span class="hl-1">.</span><span class="hl-2">setWasmPath</span><span class="hl-1">());</span>
+</code></pre>
+<p>in <span style="font-family:monospace">main.js</span> or you could set a custom string here directly:</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-14">MWB</span><span class="hl-1">.</span><span class="hl-2">setWasmPath</span><span class="hl-1">(</span><span class="hl-5">&quot;example_path/index.wasm&quot;</span><span class="hl-1">);</span>
+</code></pre>
+
+<a href="#installation-with-webpack-inline-wasm" id="installation-with-webpack-inline-wasm" style="color: inherit; text-decoration: none;">
+  <h2>Installation with Webpack (inline wasm)</h2>
+</a>
+<p>1. Call webpack from the project directory. This builds the source files from <em>/src</em> into a <em>bundle.js</em> file and places it into the <em>/dist</em> directory.</p>
+<p>2. The <em>./src/main.js</em> file serves as an entry point. It contains an example of how to use the cmbWEB SDK. The other files in the <em>/src</em> directory are part of the SDK.</p>
+<p>The <em>/dist</em> directory contains all the necessary files:</p>
+<ul>
+<li>assets (icons directory)</li>
+<li>cognex_icon.png</li>
+<li>bundle.js                                             // Built with webpack</li>
+<li>index.html                                            // Example</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: The index.html page is not part of the cmbWEB SDK. It serves only as an example of scripts to include and usage of the exposed API methods.</p>
+</blockquote>
+<p>3. Include the following scripts on the page:</p>
+<pre><code class="language-html"><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;bundle.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span>
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Unlike the standard webpack version, this version inlines the wasm binary within the js source files, thus index.js and index.wasm are no longer present.</p>
+</blockquote>
+<p>The structure of the final solution should be much like the one in the <em>/dist</em> directory.</p>
+<ul>
+<li>It&#39;s also important where the page, <em>index.html</em> in this example, that includes the webpack built file, <em>bundle.js</em> in this case, is located <strong>in relation to</strong> <em>cognex_icon.png</em>.<ul>
+<li>Make sure that the index.html and cognex_icon.png files are in the same directory, as the bundle.js file expects to find cognex_icon.png in the directory of the HTML page.</li>
+<li>This is true even if bundle.js resides in a different directory - they still expects cognex_icon.png to be in the directory of the HTML page it is included in.</li>
+<li>If you wish to change this you can do so by specifying another path through the mwbScanner.setIcon method.</li>
+</ul>
+</li>
+<li>As <em>index.wasm</em> is removed in this version, the <em>setWasmPath</em> method is also removed.</li>
+</ul>
+
+<a href="#installation-with-npm" id="installation-with-npm" style="color: inherit; text-decoration: none;">
+  <h2>Installation with npm</h2>
+</a>
+<p>1. Run npm i cmbsdk-cmbweb. This will copy the npm package content to <em>node_modules/cmbsdk-cmbweb/</em> and also add the package to your package.json if you already have one.</p>
+<p>2. The <em>node_modules/cmbsdk-cmbweb/cmbweb.js</em> file contains the entire SDK and also serves as an entry point.</p>
+<p>The <em>node_modules/cmbsdk-cmbweb/</em> directory contains all the necessary files:</p>
+<ul>
+<li>cmbweb.js</li>
+<li>cognex_icon.png</li>
+<li>MWBConfig_wa.js</li>
+<li>index.html                                            // Example</li>
+</ul>
+<p>3. Include the following script on the page:</p>
+<ul>
+<li>For usage directly in browser:</li>
+</ul>
+<pre><code class="language-html"><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;cmbweb.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;MWBConfig_wa.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span>
+</code></pre>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-8">//copy the following files to your page&#39;s directory:</span><br/><span class="hl-1">    </span><span class="hl-8">//cmbweb.js              //cmbWeb SDK</span><br/><span class="hl-1">    </span><span class="hl-8">//MWBConfig_wa.js        //your custom configuration</span><br/><span class="hl-1">    </span><span class="hl-8">//cognex_icon.png        //your license image (may have a different name)</span>
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Unlike the vanilla js and webpack versions, this version inlines the wasm binary, the css file and the assets within the js source file.</p>
+</blockquote>
+<p>The structure of the final solution should be much like the one in the <em>/node_modules/cmbsdk-cmbweb/</em> directory.</p>
+<ul>
+<li>For usage as a nodejs module:</li>
+</ul>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-8">//in your entry point file:</span><br/><span class="hl-1">    </span><span class="hl-0">var</span><span class="hl-1"> </span><span class="hl-3">mwbScanner</span><span class="hl-1"> = </span><span class="hl-2">require</span><span class="hl-1">(</span><span class="hl-5">&#39;cmbsdk-cmbweb&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-3">window</span><span class="hl-1">.</span><span class="hl-3">mwbScanner</span><span class="hl-1"> = </span><span class="hl-3">mwbScanner</span><span class="hl-1">;</span>
+</code></pre>
+<pre><code class="language-html"><span class="hl-1">    </span><span class="hl-8">&lt;!-- in your page: --&gt;</span><br/><span class="hl-1">    </span><br/><span class="hl-1">    </span><span class="hl-8">&lt;!-- a bundled file for the browser that contains cmbsdk-cmbweb --&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;./bundle.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-8">&lt;!-- a custom cmbweb configuration file --&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;MWBConfig_wa.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span>
+</code></pre>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-8">//copy the following files to your page&#39;s directory:</span><br/><span class="hl-1">    </span><span class="hl-8">//MWBConfig_wa.js        //your custom configuration</span><br/><span class="hl-1">    </span><span class="hl-8">//cognex_icon.png        //your license image (may have a different name)</span>
+</code></pre>
+<ul>
+<li>It&#39;s also important where the page, <em>index.html</em> in this example, that includes the <em>cmbweb.js</em> / <em>bundle.js</em> file, is located <strong>in relation to</strong> <em>cognex_icon.png</em>.<ul>
+<li>Make sure that the index.html and cognex_icon.png files are in the same directory, as the cmbweb.js / bundle.js file expects to find cognex_icon.png in the directory of the HTML page.</li>
+<li>This is true even if cmbweb.js / bundle.js resides in a different directory - it still expects cognex_icon.png to be in the directory of the HTML page it is included in.</li>
+<li>If you wish to change this you can do so by specifying another path through the mwbScanner.setIcon method.</li>
+</ul>
+</li>
+</ul>
+
+<a href="#integration-with-blazor-no-blazor-ui" id="integration-with-blazor-no-blazor-ui" style="color: inherit; text-decoration: none;">
+  <h2>Integration with Blazor (no Blazor UI)</h2>
+</a>
+<p>The cmbsdk-cmbweb npm package variant of the cmbWEB SDK is the most suitable for integration with Blazor. Refer to the previous section for installation details.</p>
+<p>In a Blazor WebAssembly App created from a project template in Visual Studio, you need to do the following to add and use cmbWEB in it:</p>
+<p>1. Copy the cmbweb.js, MWBConfig_wa.js, cognex_icon.png (and test_img.png if you want) files into wwwroot.</p>
+<p>2. Then, in index.html:</p>
+<pre><code class="language-html"><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;_framework/blazor.webassembly.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><br/><span class="hl-1">    //after including blazor.webassembly.js, include the following cmbWEB files:</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;./cmbweb.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;MWBConfig_wa.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span>
+</code></pre>
+<p>With that, everything is set. Once the browser loads everything, you can start using the API, for example:</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">startScanning</span><span class="hl-1">(</span><span class="hl-0">function</span><span class="hl-1">(</span><span class="hl-3">res</span><span class="hl-1">){ </span><span class="hl-3">console</span><span class="hl-1">.</span><span class="hl-2">log</span><span class="hl-1">(</span><span class="hl-3">res</span><span class="hl-1">); }, </span><span class="hl-6">25</span><span class="hl-1">,</span><span class="hl-6">25</span><span class="hl-1">,</span><span class="hl-6">50</span><span class="hl-1">,</span><span class="hl-6">50</span><span class="hl-1">);</span>
+</code></pre>
+<p>on a button click, which will start a cameraPreview and start scanning. You can check out the API <a href="#usage--exposed-api-methods">here</a>.</p>
+<p>Note that, this is using cmbWeb side-by-side with Blazor; the UI from cmbWeb is HTML and it does DOM manipulation which is fine as long as you don&#39;t intend Blazor to be aware of it, as <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#interaction-with-the-document-object-model-dom">stated</a>:</p>
+<blockquote>
+<p>Only mutate the Document Object Model (DOM) with JavaScript (JS) when the object doesn&#39;t interact with Blazor. Blazor maintains representations of the DOM and interacts directly with DOM objects.</p>
+</blockquote>
+
+<a href="#integration-with-reactjs" id="integration-with-reactjs" style="color: inherit; text-decoration: none;">
+  <h2>Integration with ReactJS</h2>
+</a>
+<p>The webpack inline variant of the cmbWEB SDK is the most suitable for integration with ReactJS. Refer to the <a href="#installation-with-webpack-inline-wasm">previous section</a> for details.</p>
+<p>In a ReactJS App, you need to do the following to add and use cmbWEB in it:</p>
+<blockquote>
+<p><strong>Note</strong>: Provided ReactJS demo app in the cmbWEB download already does steps 1, 2, 3 and 5, thus if you&#39;re using the demo, you only need to do <a href="#4-run-the-following-commands">step 4</a>.</p>
+</blockquote>
+<p>1. Copy the bundle.js file from webpack_inline/dist into reactJS_sampleApp/src/cmbweb/</p>
+<p>2. Open bundle.js and add the following comments on top:</p>
+<pre><code class="language-js"><span class="hl-8">/* eslint-disable no-unused-expressions */</span><br/><span class="hl-8">/* eslint-disable no-restricted-globals */</span><br/><span class="hl-8">/* eslint-disable no-undef */</span>
+</code></pre>
+<p>These will disable linting code patterns that eslint typically considers errors, which if not disabled would cause the build to fail.</p>
+<p>There are also other code patterns that eslint considers warnings, and while the build will still succeed, the output log might be overpopulated with warnings. So, it is ok to disable all rule warnings for the entire bundle.js file:</p>
+<pre><code class="language-js"><span class="hl-8">/* eslint-disable */</span>
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Provided ReactJS demo app in the cmbWEB download already does steps 1 and 2 under prebuild scripts in the package.json file.</p>
+</blockquote>
+<p>3. Import bundle.js into your source file:</p>
+<pre><code class="language-js"><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-3">MWBScannerSDK</span><span class="hl-1"> </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-5">&#39;./cmbweb/bundle.js&#39;</span><span class="hl-1">;</span>
+</code></pre>
+<p>and start using the cmbWeb API into methods of ReactJS components:</p>
+<pre><code class="language-js"><span class="hl-0">class</span><span class="hl-1"> </span><span class="hl-15">Trigger</span><span class="hl-1"> </span><span class="hl-0">extends</span><span class="hl-1"> </span><span class="hl-15">React</span><span class="hl-1">.</span><span class="hl-15">Component</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-2">start</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">startScanning</span><span class="hl-1">(</span><span class="hl-6">10</span><span class="hl-1">,</span><span class="hl-6">20</span><span class="hl-1">,</span><span class="hl-6">80</span><span class="hl-1">,</span><span class="hl-6">40</span><span class="hl-1">);</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">  </span><span class="hl-2">stop</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">closeScanner</span><span class="hl-1">();</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">  </span><span class="hl-2">render</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><span class="hl-4">return</span><span class="hl-1"> (</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-15">React.Fragment</span><span class="hl-9">&gt;</span><br/><span class="hl-1">      </span><span class="hl-9">&lt;</span><span class="hl-10">button</span><span class="hl-1"> </span><span class="hl-12">onClick</span><span class="hl-1">=</span><span class="hl-0">{this</span><span class="hl-11">.</span><span class="hl-3">start</span><span class="hl-0">}</span><span class="hl-9">&gt;</span><span class="hl-1">Start Scanner</span><span class="hl-9">&lt;/</span><span class="hl-10">button</span><span class="hl-9">&gt;</span><br/><span class="hl-1">      </span><span class="hl-9">&lt;</span><span class="hl-10">button</span><span class="hl-1"> </span><span class="hl-12">onClick</span><span class="hl-1">=</span><span class="hl-0">{this</span><span class="hl-11">.</span><span class="hl-3">stop</span><span class="hl-0">}</span><span class="hl-9">&gt;</span><span class="hl-1">Stop Scanner</span><span class="hl-9">&lt;/</span><span class="hl-10">button</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;/</span><span class="hl-15">React.Fragment</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    );</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>Using the startScanning method as such will create an HTML cameraPreview and dynamically add it to the DOM. This might not be an issue, but since ReactJS maintains its own internal DOM representation, that means ReactJS is unaware of changes made to the DOM outside of ReactJS, which could potentially lead to unwanted behaviour.</p>
+<p>Thus, a better approach is using a container element for adding the cameraPreview to:</p>
+<pre><code class="language-js"><span class="hl-0">class</span><span class="hl-1"> </span><span class="hl-15">Container</span><span class="hl-1"> </span><span class="hl-0">extends</span><span class="hl-1"> </span><span class="hl-15">React</span><span class="hl-1">.</span><span class="hl-15">Component</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">id</span><span class="hl-1"> = </span><span class="hl-5">&quot;cmbweb-preview-container&quot;</span><br/><span class="hl-1">  </span><span class="hl-3">divStyle</span><span class="hl-1"> = {</span><br/><span class="hl-1">    </span><span class="hl-3">border:</span><span class="hl-1"> </span><span class="hl-5">&#39;blue&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">position:</span><span class="hl-1"> </span><span class="hl-5">&#39;fixed&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">top:</span><span class="hl-1"> </span><span class="hl-5">&#39;25%&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">left:</span><span class="hl-1"> </span><span class="hl-5">&#39;25%&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">width:</span><span class="hl-1"> </span><span class="hl-5">&#39;50%&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">height:</span><span class="hl-1"> </span><span class="hl-5">&#39;30%&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-3">backgroundColor:</span><span class="hl-1"> </span><span class="hl-5">&#39;gray&#39;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">  </span><span class="hl-2">render</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><span class="hl-4">return</span><span class="hl-1"> </span><span class="hl-9">&lt;</span><span class="hl-10">div</span><span class="hl-1"> </span><span class="hl-12">id</span><span class="hl-1">=</span><span class="hl-0">{this</span><span class="hl-11">.</span><span class="hl-3">id</span><span class="hl-0">}</span><span class="hl-1"> </span><span class="hl-12">style</span><span class="hl-1">=</span><span class="hl-0">{this</span><span class="hl-11">.</span><span class="hl-3">divStyle</span><span class="hl-0">}</span><span class="hl-9">/&gt;</span><span class="hl-1">;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Provided ReactJS demo app in the cmbWEB download already does step 3 in the /src/sampleapp.js file.</p>
+</blockquote>
+
+<a href="#4-run-the-following-commands" id="4-run-the-following-commands" style="color: inherit; text-decoration: none;">
+  <h5>4. Run the following commands:</h5>
+</a>
+<br>
+
+<pre><code class="language-js"><span class="hl-3">npm</span><span class="hl-1"> </span><span class="hl-3">install</span><span class="hl-1">                </span><span class="hl-8">//needed only 1st time</span><br/><span class="hl-3">npm</span><span class="hl-1"> </span><span class="hl-3">run</span><span class="hl-1">-</span><span class="hl-3">script</span><span class="hl-1"> </span><span class="hl-3">build</span>
+</code></pre>
+<p>from the react directory to create the react build from that source.</p>
+<p>5. Copy assets, cognex_icon.png (or your license image file, that you have set in MWBConfig_wa.js in the webpack_inline project), and test_img.png into the newly generated build directory (this step is needed each time a new build is created).</p>
+<blockquote>
+<p><strong>Note</strong>: Provided ReactJS demo app in the cmbWEB download already does step 5 under postbuild scripts in the package.json file.</p>
+</blockquote>
+<p>You can now host the build directory and open it in a browser.</p>
+
+<a href="#integration-with-angular" id="integration-with-angular" style="color: inherit; text-decoration: none;">
+  <h2>Integration with Angular</h2>
+</a>
+<p>The npm package variant of the cmbWEB SDK is the most suitable for integration with Angular. Refer to the <a href="#installation-with-npm">previous section</a> for details.</p>
+<p>In an Angular app, you need to do the following to add and use cmbWEB in it:</p>
+<blockquote>
+<p><strong>Note</strong>: Provided Angular demo app in the cmbWEB download already does steps 1, 2, 3 and 4, thus if you&#39;re using the demo, you only need to do <a href="#5-run-the-following-commands">step 5</a>.</p>
+</blockquote>
+<p>1. Add the cmbsdk-cmbweb npm package:</p>
+<pre><code class="language-js"><span class="hl-3">npm</span><span class="hl-1"> </span><span class="hl-3">i</span><span class="hl-1"> </span><span class="hl-3">cmbsdk</span><span class="hl-1">-</span><span class="hl-3">cmbweb</span>
+</code></pre>
+<p>2. Open package.json and:</p>
+<ul>
+<li>under &quot;scripts&quot;: { ... } make sure you have</li>
+</ul>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-5">&quot;build&quot;</span><span class="hl-1">: </span><span class="hl-5">&quot;ng build&quot;</span><span class="hl-1">,</span>
+</code></pre>
+<p>The built page includes a base tag with href attribute for referencing includes resources, such as scripts, css files, etc. Most likely you will need to provide the path of the built directory for this property, and you can do so with</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-5">&quot;build&quot;</span><span class="hl-1">: </span><span class="hl-5">&quot;ng build --base-href /path_on_the_web_server/angular_demo/dist/cmbweb-angular-demo/&quot;</span><span class="hl-1">,</span>
+</code></pre>
+<p>Replace <em>path_on_the_web_server</em> with the actual path on your web server.</p>
+<ul>
+<li>under &quot;scripts&quot;: { ... } add the following</li>
+</ul>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-5">&quot;postbuild&quot;</span><span class="hl-1">: </span><span class="hl-5">&quot;shx cp ./node_modules/cmbsdk-cmbweb/MWBConfig_wa.js ./dist/cmbweb-angular-demo &amp;&amp; shx cp ./node_modules/cmbsdk-cmbweb/cognex_icon.png ./dist/cmbweb-angular-demo&quot;</span><span class="hl-1">,</span>
+</code></pre>
+<p>The postbuild script will copy the MWBConfig_wa.js and cognex_icon.png files to the output directory after a build. It relies on the shx, so you need to add it as well:</p>
+<pre><code class="language-js"><span class="hl-3">npm</span><span class="hl-1"> </span><span class="hl-3">i</span><span class="hl-1"> </span><span class="hl-3">shx</span>
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Your particular license image may be differently named than cognex_icon.png and reside in a different location, and if so, you&#39;ll need to adjust the postbuild script with the correct filename and path. The same is true for MWBConfig_wa.js if you&#39;re using a different location for it.</p>
+</blockquote>
+<blockquote>
+<p><strong>Note</strong>: cmbweb-angular-demo is the name of the provided Angular demo app in the cmbWEB download. Your Angular app may have a different name.</p>
+</blockquote>
+<p>3. Import and use cmbsdk-cmbweb into your src/app source files:</p>
+<p>Since cmbsdk-cmbweb is a UMD Module and not an ES Module nor is it written in TypeScript, standard import practises won&#39;t work. Instead, using import * as _ works in such cases.</p>
+<p>app.component.ts</p>
+<pre><code class="language-js"><span class="hl-8">// @ts-ignore</span><br/><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-0">*</span><span class="hl-1"> </span><span class="hl-4">as</span><span class="hl-1"> </span><span class="hl-3">_</span><span class="hl-1"> </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-5">&#39;cmbsdk-cmbweb&#39;</span><span class="hl-1">;</span>
+</code></pre>
+<p>After that, you can move on to using the cmbWeb API into methods of Angular components:</p>
+<p>app.component.ts</p>
+<pre><code class="language-js"><span class="hl-4">export</span><span class="hl-1"> </span><span class="hl-0">class</span><span class="hl-1"> </span><span class="hl-15">AppComponent</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">title</span><span class="hl-1"> = </span><span class="hl-5">&#39;cmbWeb demo&#39;</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><br/><span class="hl-1">  </span><span class="hl-0">constructor</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><br/><span class="hl-1">    </span><span class="hl-8">//make mwbScanner global</span><br/><span class="hl-1">    (</span><span class="hl-3">window</span><span class="hl-1"> </span><span class="hl-4">as</span><span class="hl-1"> </span><span class="hl-15">any</span><span class="hl-1">).</span><span class="hl-3">mwbScanner</span><span class="hl-1"> = </span><span class="hl-3">_</span><span class="hl-1">;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">  </span><br/><span class="hl-1">  </span><span class="hl-0">public</span><span class="hl-1"> </span><span class="hl-2">startScanning</span><span class="hl-1">(): </span><span class="hl-15">void</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><br/><span class="hl-1">    (</span><span class="hl-3">window</span><span class="hl-1"> </span><span class="hl-4">as</span><span class="hl-1"> </span><span class="hl-15">any</span><span class="hl-1">).</span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">startScanning</span><span class="hl-1">();</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">  </span><br/><span class="hl-1">  </span><span class="hl-0">public</span><span class="hl-1"> </span><span class="hl-2">closeScanner</span><span class="hl-1">(): </span><span class="hl-15">void</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><br/><span class="hl-1">    (</span><span class="hl-3">window</span><span class="hl-1"> </span><span class="hl-4">as</span><span class="hl-1"> </span><span class="hl-15">any</span><span class="hl-1">).</span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">closeScanner</span><span class="hl-1">();</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>app.component.html</p>
+<pre><code class="language-html"><span class="hl-9">&lt;</span><span class="hl-10">div</span><span class="hl-1"> </span><span class="hl-12">id</span><span class="hl-1">=</span><span class="hl-13">&quot;ui-buttons&quot;</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">button</span><span class="hl-1"> </span><span class="hl-12">id</span><span class="hl-1">=</span><span class="hl-13">&quot;start-scan-button&quot;</span><span class="hl-1"> </span><span class="hl-12">(click)</span><span class="hl-1">=</span><span class="hl-13">&quot;startScanning()&quot;</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    Start Scanner</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;/</span><span class="hl-10">button</span><span class="hl-9">&gt;</span><br/><br/><span class="hl-1">    </span><span class="hl-9">&lt;</span><span class="hl-10">button</span><span class="hl-1"> </span><span class="hl-12">id</span><span class="hl-1">=</span><span class="hl-13">&quot;stop-scan-button&quot;</span><span class="hl-1"> </span><span class="hl-12">(click)</span><span class="hl-1">=</span><span class="hl-13">&quot;closeScanner()&quot;</span><span class="hl-9">&gt;</span><br/><span class="hl-1">    Stop Scanner</span><br/><span class="hl-1">    </span><span class="hl-9">&lt;/</span><span class="hl-10">button</span><span class="hl-9">&gt;</span><br/><span class="hl-9">&lt;/</span><span class="hl-10">div</span><span class="hl-9">&gt;</span><br/><br/><span class="hl-9">&lt;</span><span class="hl-10">br</span><span class="hl-9">/&gt;</span><br/><br/><span class="hl-9">&lt;</span><span class="hl-10">div</span><span class="hl-1"> </span><span class="hl-12">id</span><span class="hl-1">=</span><span class="hl-13">&quot;cmbweb-preview-container&quot;</span><span class="hl-1"> </span><span class="hl-12">style</span><span class="hl-1">=</span><span class="hl-13">&quot;border:1px solid; position:fixed; top:25%; left:25%; width:50%; height:30%; background-color:gray;&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">div</span><span class="hl-9">&gt;</span>
+</code></pre>
+<p>Make sure the built page includes MWBConfig_wa.js i.e. modify</p>
+<p>src/index.html</p>
+<pre><code class="language-html"><span class="hl-9">&lt;</span><span class="hl-10">body</span><span class="hl-9">&gt;</span><br/><span class="hl-1">  </span><span class="hl-9">&lt;</span><span class="hl-10">app-root</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">app-root</span><span class="hl-9">&gt;</span><br/><span class="hl-1">  </span><span class="hl-9">&lt;</span><span class="hl-10">script</span><span class="hl-11"> </span><span class="hl-12">type</span><span class="hl-11">=</span><span class="hl-13">&quot;text/javascript&quot;</span><span class="hl-11"> </span><span class="hl-12">src</span><span class="hl-11">=</span><span class="hl-13">&quot;MWBConfig_wa.js&quot;</span><span class="hl-9">&gt;&lt;/</span><span class="hl-10">script</span><span class="hl-9">&gt;</span><br/><span class="hl-9">&lt;/</span><span class="hl-10">body</span><span class="hl-9">&gt;</span>
+</code></pre>
+<p>4. Edit the angular.json file:</p>
+<ul>
+<li>under projects &gt; cmbweb-angular-demo &gt; architect &gt; build &gt; options add the following</li>
+</ul>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-5">&quot;allowedCommonJsDependencies&quot;</span><span class="hl-1">: [</span><br/><span class="hl-1">              </span><span class="hl-5">&quot;cmbsdk-cmbweb&quot;</span><br/><span class="hl-1">            ],</span>
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: the &quot;cmbweb-angular-demo&quot; field is the name of the provided Angular demo app in the cmbWEB download. Your Angular app may have a different name.</p>
+</blockquote>
+<ul>
+<li>under projects &gt; cmbweb-angular-demo &gt; architect &gt; build &gt; configurations &gt; production &gt; budgets [{ ... }] modify the &quot;maximumError&quot; value to 2mb (or more, as cmbweb.js is currently just under 2mb)</li>
+</ul>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-5">&quot;maximumError&quot;</span><span class="hl-1">: </span><span class="hl-5">&quot;2mb&quot;</span>
+</code></pre>
+<br>
+
+
+<a href="#5-run-the-following-commands" id="5-run-the-following-commands" style="color: inherit; text-decoration: none;">
+  <h5>5. Run the following commands:</h5>
+</a>
+<br>
+
+<pre><code class="language-js"><span class="hl-3">npm</span><span class="hl-1"> </span><span class="hl-3">install</span><span class="hl-1">                </span><span class="hl-8">//needed only 1st time</span><br/><span class="hl-3">npm</span><span class="hl-1"> </span><span class="hl-3">run</span><span class="hl-1">-</span><span class="hl-3">script</span><span class="hl-1"> </span><span class="hl-3">build</span><span class="hl-1">        </span><span class="hl-8">//see note below before running this line</span>
+</code></pre>
+<p>from the angular directory to create the angular build from that source.</p>
+<blockquote>
+<p><strong>Note</strong>: Before creating a build, you will need to change the base-href argument with a valid path. If you have already set a valid path (in step 2 or otherwise) you can skip this part.</p>
+</blockquote>
+<p>To change the base-href path, open package.json and under &quot;scripts&quot;: { ... }</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-5">&quot;build&quot;</span><span class="hl-1">: </span><span class="hl-5">&quot;ng build --base-href /path_on_the_web_server/angular_demo/dist/cmbweb-angular-demo/&quot;</span><span class="hl-1">,</span>
+</code></pre>
+<p>replace <em>path_on_the_web_server</em> with the actual path on your web server.</p>
+<p>You can now host the dist/cmbweb-angular-demo directory and open it in a browser.</p>
+
+<a href="#configuration" id="configuration" style="color: inherit; text-decoration: none;">
+  <h2>Configuration</h2>
+</a>
+<p>The scanner is configured through the MWBConfig_wa.js file, which contains the following:</p>
+<ul>
+<li>
+<a href="#subscribing-to-scannermoduleloaded-event" id="subscribing-to-scannermoduleloaded-event" style="color: inherit; text-decoration: none;">
+  <h5>Subscribing to <em>scannerModuleLoaded</em> event</h5>
+</a>
+</li>
+</ul>
+<p>After this event the scanner is ready to be used and its methods can be invoked. The scanner load and start up process could take longer on slower devices and slower networks.</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-3">document</span><span class="hl-1">.</span><span class="hl-2">addEventListener</span><span class="hl-1">(</span><span class="hl-5">&quot;scannerModuleLoaded&quot;</span><span class="hl-1">, </span><span class="hl-0">function</span><span class="hl-1">(</span><span class="hl-3">e</span><span class="hl-1">) {</span><br/><span class="hl-1">        </span><span class="hl-3">console</span><span class="hl-1">.</span><span class="hl-2">log</span><span class="hl-1">(</span><span class="hl-3">e</span><span class="hl-1">.</span><span class="hl-3">detail</span><span class="hl-1">); </span><span class="hl-8">//Prints &quot;Scanner is ready.&quot;</span><br/><span class="hl-1">        </span><span class="hl-8">//can use mwbScanner.* methods now</span><br/><span class="hl-1">    });</span>
+</code></pre>
+<p>See the <a href="modules.html#myScannerReadyEventListener">example event listener</a>.</p>
+<ul>
+<li>
+<a href="#getting-available-cameras-and-setting-the-desired-camera" id="getting-available-cameras-and-setting-the-desired-camera" style="color: inherit; text-decoration: none;">
+  <h5>Getting available cameras and setting the desired camera</h5>
+</a>
+</li>
+</ul>
+<p>Usually for situations where the device has multiple rear cameras, and the one without auto-focus is used by default.
+<br><br> There is a commented-out example for doing this in the MWBConfig_wa.js file:</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">getCameras</span><span class="hl-1">().</span><span class="hl-2">then</span><span class="hl-1">(</span><span class="hl-0">function</span><span class="hl-1">(</span><span class="hl-3">foundCameras</span><span class="hl-1">){</span><br/><span class="hl-1">        </span><span class="hl-0">let</span><span class="hl-1"> </span><span class="hl-3">cameraCount</span><span class="hl-1"> = </span><span class="hl-3">foundCameras</span><span class="hl-1">.</span><span class="hl-3">length</span><span class="hl-1">;</span><br/><span class="hl-1">        </span><span class="hl-3">console</span><span class="hl-1">.</span><span class="hl-2">log</span><span class="hl-1">(</span><span class="hl-5">&quot;Cameras found: &quot;</span><span class="hl-1"> + </span><span class="hl-3">cameraCount</span><span class="hl-1">);</span><br/><span class="hl-1">        </span><br/><span class="hl-1">        </span><span class="hl-8">//list found cameras with label / name and id</span><br/><span class="hl-1">        </span><span class="hl-4">for</span><span class="hl-1"> (</span><span class="hl-0">let</span><span class="hl-1"> </span><span class="hl-3">i</span><span class="hl-1"> = </span><span class="hl-6">0</span><span class="hl-1">; </span><span class="hl-3">i</span><span class="hl-1"> &lt; </span><span class="hl-3">cameraCount</span><span class="hl-1">; </span><span class="hl-3">i</span><span class="hl-1">++)</span><br/><span class="hl-1">            </span><span class="hl-3">console</span><span class="hl-1">.</span><span class="hl-2">log</span><span class="hl-1">(</span><span class="hl-5">&quot;Camera &quot;</span><span class="hl-1"> + </span><span class="hl-3">i</span><span class="hl-1"> + </span><span class="hl-5">&quot; name: &quot;</span><span class="hl-1"> + </span><span class="hl-3">foundCameras</span><span class="hl-1">[</span><span class="hl-3">i</span><span class="hl-1">].</span><span class="hl-3">label</span><span class="hl-1"> + </span><span class="hl-5">&quot; with ID: &quot;</span><span class="hl-1"> + </span><span class="hl-3">foundCameras</span><span class="hl-1">[</span><span class="hl-3">i</span><span class="hl-1">].</span><span class="hl-3">id</span><span class="hl-1">);</span><br/><span class="hl-1">        </span><br/><span class="hl-1">        </span><span class="hl-8">//use desired camera.id for the param</span><br/><span class="hl-1">        </span><span class="hl-0">let</span><span class="hl-1"> </span><span class="hl-3">desiredCameraIndex</span><span class="hl-1"> = </span><span class="hl-6">0</span><span class="hl-1">;</span><br/><span class="hl-1">        </span><span class="hl-0">let</span><span class="hl-1"> </span><span class="hl-3">desiredCameraId</span><span class="hl-1"> = </span><span class="hl-3">foundCameras</span><span class="hl-1">[</span><span class="hl-3">desiredCameraIndex</span><span class="hl-1">].</span><span class="hl-3">id</span><span class="hl-1">;</span><br/><span class="hl-1">        </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">setCamera</span><span class="hl-1">(</span><span class="hl-3">desiredCameraId</span><span class="hl-1">); </span><span class="hl-8">//overrides the effect of the MWBuseFrontCamera setting</span><br/><span class="hl-1">        </span><span class="hl-8">//can use mwbScanner.startScanning methods now</span><br/><span class="hl-1">    });</span>
+</code></pre>
+<p>See the <a href="interfaces/mwbScanner.html#getCameras">getCameras</a> and <a href="interfaces/mwbScanner.html#setCamera">setCamera</a> methods.</p>
+<blockquote>
+<p><strong>Note</strong>: When it comes to choosing which of the cameras to use for situations where the device has multiple back cameras, and the one without auto-focus is used by default, currently there is no indicator which one has auto-focus so you will have to try which one works best. However, there seems to be a common denominator for the back camera with AF - it will typically have a label like &quot;camera2 0, facing back&quot; so the back camera with a &quot;0&quot; in the label is usually the best one.</p>
+</blockquote>
+<ul>
+<li>
+<a href="#enabling-the-camera-switcher-on-the-camerapreview" id="enabling-the-camera-switcher-on-the-camerapreview" style="color: inherit; text-decoration: none;">
+  <h5>Enabling the camera switcher on the cameraPreview</h5>
+</a>
+</li>
+</ul>
+<p>Usually for situations where the device has multiple cameras, the camera switcher UI lists all found cameras, and allows to switch to a different camera. Doing so stops the current scanning and starts a new scanning session with the chosen camera.
+<br><br> The camera switcher is enabled in the MWBConfig_wa.js file with the following setting:</p>
+<pre><code class="language-js"><span class="hl-1">    {</span><span class="hl-5">&quot;method&quot;</span><span class="hl-1"> : </span><span class="hl-5">&quot;MWBenableCameraSwitcher&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-1"> : [</span><span class="hl-0">true</span><span class="hl-1">]}</span>
+</code></pre>
+<p>See the <a href="interfaces/BarcodeScanner.html#MWBsetCameraSwitcherOptions">MWBsetCameraSwitcherOptions</a> configuration method.</p>
+<ul>
+<li>
+<a href="#setting-a-default-callback-method" id="setting-a-default-callback-method" style="color: inherit; text-decoration: none;">
+  <h5>Setting a default callback method</h5>
+</a>
+</li>
+</ul>
+<p>The following is an example for setting a default callback for handling the return from mwbScanner.startScanning, when a barcode is found, the scan is canceled or an error has occurred:</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">setCallback</span><span class="hl-1">(</span><br/><span class="hl-1">        </span><span class="hl-0">function</span><span class="hl-1">(</span><span class="hl-3">result</span><span class="hl-1">) {</span><br/><span class="hl-1">            </span><br/><span class="hl-1">            </span><span class="hl-4">if</span><span class="hl-1"> (</span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">type</span><span class="hl-1"> == </span><span class="hl-5">&quot;Error&quot;</span><span class="hl-1">) </span><span class="hl-3">console</span><span class="hl-1">.</span><span class="hl-2">log</span><span class="hl-1">(</span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">errorDetails</span><span class="hl-1">);            </span><br/><span class="hl-1">            </span><span class="hl-4">else</span><span class="hl-1"> </span><span class="hl-4">if</span><span class="hl-1"> (</span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">type</span><span class="hl-1"> == </span><span class="hl-5">&quot;Cancel&quot;</span><span class="hl-1">) </span><span class="hl-3">console</span><span class="hl-1">.</span><span class="hl-2">log</span><span class="hl-1">(</span><span class="hl-5">&quot;No Barcode.&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">            </span><span class="hl-4">else</span><span class="hl-1"> </span><span class="hl-4">if</span><span class="hl-1"> (</span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">type</span><span class="hl-1"> == </span><span class="hl-5">&quot;NoResult&quot;</span><span class="hl-1">) </span><span class="hl-3">console</span><span class="hl-1">.</span><span class="hl-2">log</span><span class="hl-1">(</span><span class="hl-5">&quot;No Barcode.&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">            </span><br/><span class="hl-1">            </span><span class="hl-4">else</span><span class="hl-1"> </span><span class="hl-4">if</span><span class="hl-1"> (</span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">type</span><span class="hl-1"> == </span><span class="hl-5">&quot;Multicode&quot;</span><span class="hl-1">)</span><br/><span class="hl-1">            {</span><br/><span class="hl-1">                </span><span class="hl-0">let</span><span class="hl-1"> </span><span class="hl-3">resultCodes_string</span><span class="hl-1"> = </span><span class="hl-5">&quot;&quot;</span><span class="hl-1">;</span><br/><span class="hl-1">                </span><span class="hl-0">let</span><span class="hl-1"> </span><span class="hl-3">foundCodes</span><span class="hl-1"> = </span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">count</span><span class="hl-1">;</span><br/><span class="hl-1">                </span><span class="hl-4">for</span><span class="hl-1"> (</span><span class="hl-0">let</span><span class="hl-1"> </span><span class="hl-3">i</span><span class="hl-1"> = </span><span class="hl-6">0</span><span class="hl-1">; </span><span class="hl-3">i</span><span class="hl-1"> &lt; </span><span class="hl-3">foundCodes</span><span class="hl-1">; </span><span class="hl-3">i</span><span class="hl-1">++)</span><br/><span class="hl-1">                {</span><br/><span class="hl-1">                    </span><span class="hl-3">resultCodes_string</span><span class="hl-1"> += </span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">codes</span><span class="hl-1">[</span><span class="hl-3">i</span><span class="hl-1">].</span><span class="hl-3">type</span><span class="hl-1"> + </span><span class="hl-5">&#39;</span><span class="hl-7">\n</span><span class="hl-5">&#39;</span><span class="hl-1"> + </span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">codes</span><span class="hl-1">[</span><span class="hl-3">i</span><span class="hl-1">].</span><span class="hl-3">code</span><span class="hl-1"> + </span><span class="hl-5">&#39;</span><span class="hl-7">\n</span><span class="hl-5">&#39;</span><span class="hl-1">;</span><br/><span class="hl-1">                    </span><br/><span class="hl-1">                }</span><br/><span class="hl-1">                </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">beep</span><span class="hl-1">();</span><br/><span class="hl-1">                </span><span class="hl-3">console</span><span class="hl-1">.</span><span class="hl-2">log</span><span class="hl-1">(</span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">type</span><span class="hl-1"> + </span><span class="hl-5">&#39;</span><span class="hl-7">\n\n</span><span class="hl-5">&#39;</span><span class="hl-1"> + </span><span class="hl-3">resultCodes_string</span><span class="hl-1">);</span><br/><span class="hl-1">            }</span><br/><span class="hl-1">            </span><span class="hl-4">else</span><br/><span class="hl-1">            {</span><br/><span class="hl-1">                </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">beep</span><span class="hl-1">();</span><br/><span class="hl-1">                </span><span class="hl-3">console</span><span class="hl-1">.</span><span class="hl-2">log</span><span class="hl-1">(</span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">type</span><span class="hl-1"> + </span><span class="hl-5">&#39;</span><span class="hl-7">\n</span><span class="hl-5">&#39;</span><span class="hl-1"> + </span><span class="hl-3">result</span><span class="hl-1">.</span><span class="hl-3">code</span><span class="hl-1">);</span><br/><span class="hl-1">                </span><br/><span class="hl-1">                </span><span class="hl-8">//mwbScanner.resumeScanning(); //if using !MWBcloseScannerOnDecode</span><br/><span class="hl-1">            }</span><br/><span class="hl-1">        }</span><br/><span class="hl-1">    );</span>
+</code></pre>
+<p>See the <a href="modules.html#MyCallback">example callback method</a>.</p>
+<ul>
+<li>
+<a href="#configuring-settings" id="configuring-settings" style="color: inherit; text-decoration: none;">
+  <h5>Configuring settings</h5>
+</a>
+</li>
+</ul>
+<p>This is done with an array of key:value pairs for methods and values for their arguments which are invoked when the scanner is loaded and/or started.</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-0">var</span><span class="hl-1"> </span><span class="hl-3">mw_c</span><span class="hl-1"> = </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">getConstants</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-3">settings</span><span class="hl-1"> = [</span><br/><span class="hl-1">        {</span><span class="hl-5">&quot;method&quot;</span><span class="hl-3"> :</span><span class="hl-1"> </span><span class="hl-5">&quot;MWBsetActiveCodes&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-3"> :</span><span class="hl-1"> [</span><br/><span class="hl-1">            </span><span class="hl-3">mw_c</span><span class="hl-1">.</span><span class="hl-14">MWB_CODE_MASK_QR</span><span class="hl-1"> | </span><br/><span class="hl-1">            </span><span class="hl-3">mw_c</span><span class="hl-1">.</span><span class="hl-14">MWB_CODE_MASK_DM</span><span class="hl-1"> | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_RSS | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_39 | </span><br/><span class="hl-1">            </span><span class="hl-3">mw_c</span><span class="hl-1">.</span><span class="hl-14">MWB_CODE_MASK_EANUPC</span><span class="hl-1"> | </span><br/><span class="hl-1">            </span><span class="hl-3">mw_c</span><span class="hl-1">.</span><span class="hl-14">MWB_CODE_MASK_128</span><span class="hl-1"> | </span><br/><span class="hl-1">            </span><span class="hl-3">mw_c</span><span class="hl-1">.</span><span class="hl-14">MWB_CODE_MASK_PDF</span><span class="hl-1"> | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_AZTEC | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_25 | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_93 | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_CODABAR | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_DOTCODE | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_11 | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_MSI | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_MAXICODE | </span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_POSTAL |</span><br/><span class="hl-1">            </span><span class="hl-8">//mw_c.MWB_CODE_MASK_TELEPEN |</span><br/><span class="hl-1">            </span><span class="hl-6">0x0</span><span class="hl-1"> </span><span class="hl-8">//for binary-OR syntax purposes</span><br/><span class="hl-1">        ]}</span><br/><span class="hl-1">        ,{</span><span class="hl-5">&quot;method&quot;</span><span class="hl-3"> :</span><span class="hl-1"> </span><span class="hl-5">&quot;MWBsetLevel&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-3"> :</span><span class="hl-1"> [</span><span class="hl-6">2</span><span class="hl-1">]}</span><br/><span class="hl-1">        ,{</span><span class="hl-5">&quot;method&quot;</span><span class="hl-3"> :</span><span class="hl-1"> </span><span class="hl-5">&quot;MWBenableHiRes&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-3"> :</span><span class="hl-1"> [</span><span class="hl-3">mw_c</span><span class="hl-1">.</span><span class="hl-3">CamRes_HD</span><span class="hl-1">]}</span><br/><span class="hl-1">        ,{</span><span class="hl-5">&quot;method&quot;</span><span class="hl-3"> :</span><span class="hl-1"> </span><span class="hl-5">&quot;MWBsetDecoderTimeout&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-3"> :</span><span class="hl-1"> [</span><span class="hl-6">10</span><span class="hl-1">]}</span><br/><span class="hl-1">        ,{</span><span class="hl-5">&quot;method&quot;</span><span class="hl-3"> :</span><span class="hl-1"> </span><span class="hl-5">&quot;MWBsetDpsLimit&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-3"> :</span><span class="hl-1"> [</span><span class="hl-6">2</span><span class="hl-1">]}</span><br/><span class="hl-1">    ];</span><br/><span class="hl-1">    </span><br/><span class="hl-1">    </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">loadSettings</span><span class="hl-1">(</span><span class="hl-3">settings</span><span class="hl-1">);</span>
+</code></pre>
+<p>See all <a href="interfaces/BarcodeScanner.html">configuration methods</a> and <a href="interfaces/BarcodeScanner.html#configuration-stage">configuration stage</a>.</p>
+<blockquote>
+<p><strong>Note</strong>: Some of the settings listed in the MWBConfig_wa.js file are commented-out and can be uncommented to enable them, and their values can be changed.</p>
+</blockquote>
+
+<a href="#usage--exposed-api-methods" id="usage--exposed-api-methods" style="color: inherit; text-decoration: none;">
+  <h2>Usage | Exposed API Methods</h2>
+</a>
+<p>The <a href="interfaces/mwbScanner.html">mwbScanner object</a> is the main object which exposes the cmbWeb API.</p>
+<p>Once all the modules have loaded and the scanner is ready, meaning that the scannerModuleLoaded event has fired, the exposed methods from the mwbScanner object can be invoked:</p>
+<p>Scanning methods:</p>
+<p><a href="interfaces/mwbScanner.html#startScanning">mwbScanner.startScanning</a>
+<br> <a href="interfaces/mwbScanner.html#scanImage">mwbScanner.scanImage</a>
+<br> <a href="interfaces/mwbScanner.html#scanFrame">mwbScanner.scanFrame</a></p>
+<p>Scan control methods:</p>
+<p><a href="interfaces/mwbScanner.html#closeScanner">mwbScanner.closeScanner</a>
+<br> <a href="interfaces/mwbScanner.html#resumeScanning">mwbScanner.resumeScanning</a>
+<br> <a href="interfaces/mwbScanner.html#togglePauseResume">mwbScanner.togglePauseResume</a></p>
+<p>Camera preview UI controling methods:</p>
+<p><a href="interfaces/mwbScanner.html#resizePartialScanner">mwbScanner.resizePartialScanner</a>
+<br> <a href="interfaces/mwbScanner.html#setBlinkingLineVisible">mwbScanner.setBlinkingLineVisible</a>
+<br> <a href="interfaces/mwbScanner.html#setScannerOverlayMode">mwbScanner.setScannerOverlayMode</a>
+<br> <a href="interfaces/mwbScanner.html#toggleFlash">mwbScanner.toggleFlash</a>
+<br> <a href="interfaces/mwbScanner.html#toggleFlash">mwbScanner.toggleZoom</a></p>
+<p>Examples:</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-3">Scan</span><span class="hl-1"> </span><span class="hl-3">fullscreen</span><span class="hl-1">     -  </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">startScanning</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-3">Scan</span><span class="hl-1"> </span><span class="hl-0">in</span><span class="hl-1"> </span><span class="hl-3">view</span><span class="hl-1">        -  </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">startScanning</span><span class="hl-1">(</span><span class="hl-6">5</span><span class="hl-1">,</span><span class="hl-6">5</span><span class="hl-1">,</span><span class="hl-6">90</span><span class="hl-1">,</span><span class="hl-6">50</span><span class="hl-1">)</span><br/><span class="hl-1">    </span><span class="hl-3">Scan</span><span class="hl-1"> </span><span class="hl-3">image</span><span class="hl-1">          -  </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">scanImage</span><span class="hl-1">(</span><span class="hl-5">&#39;test_img.png&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">    </span><span class="hl-3">Pause</span><span class="hl-1">/</span><span class="hl-3">Resume</span><span class="hl-1">        -  </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">togglePauseResume</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-3">Resume</span><span class="hl-1">              -  </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">resumeScanning</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-3">Close</span><span class="hl-1">               -  </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">closeScanner</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-3">Flash</span><span class="hl-1">               -  </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">toggleFlash</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-3">Zoom</span><span class="hl-1">                -  </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">toggleZoom</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-3">Resize</span><span class="hl-1"> </span><span class="hl-3">partial</span><span class="hl-1"> </span><span class="hl-3">view</span><span class="hl-1"> -  </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">resizePartialScanner</span><span class="hl-1">(</span><span class="hl-6">25</span><span class="hl-1">,</span><span class="hl-6">25</span><span class="hl-1">,</span><span class="hl-6">50</span><span class="hl-1">,</span><span class="hl-6">50</span><span class="hl-1">)</span>
+</code></pre>
+
+<a href="#licensing-the-sdk" id="licensing-the-sdk" style="color: inherit; text-decoration: none;">
+  <h2>Licensing the SDK</h2>
+</a>
+<p>Licensing is done by using an image that contains the licensing information. You can see such an image file as the license key itself.</p>
+<ul>
+<li>
+<a href="#configuring-the-license-image-pathname" id="configuring-the-license-image-pathname" style="color: inherit; text-decoration: none;">
+  <h5>Configuring the license image (path)name:</h5>
+</a>
+</li>
+</ul>
+<p>The cmbWEB SDK sample comes with a license image file cognex_icon.png, which does not contain a license, it only serves as an example. The actual license image file can have a different name and/or path, for example, carrier_icon.png.</p>
+<p>Use mwbScanner.setIcon() to specify the license image name and path in the MWBConfig_wa.js file by including the path and image name as an argument.</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">setIcon</span><span class="hl-1">(</span><span class="hl-5">&quot;carrier_icon.png&quot;</span><span class="hl-1">);</span>
+</code></pre>
+<p>The image file carrier_icon.png is expected to be in the same directory as the index.html file and the .js file that calls the setIcon method.</p>
+<p>Using a path works in relation to the index.html file in this example, or the root of the server in case of /path</p>
+<p>The setIcon method can be overloaded with two arguments.</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">setIcon</span><span class="hl-1">(</span><span class="hl-3">iconURI</span><span class="hl-1">, </span><span class="hl-3">allowCrossOrigin</span><span class="hl-1">);</span>
+</code></pre>
+<p>The setIcon method now also accepts a 2nd argument (boolean) which if set to true allows cross origin, otherwise if set to false or not used at all it keeps the default (no cross origin).</p>
+<pre><code class="language-js"><span class="hl-1">    </span><span class="hl-3">mwbScanner</span><span class="hl-1">.</span><span class="hl-2">setIcon</span><span class="hl-1">(</span><span class="hl-5">&quot;carrier_icon.png&quot;</span><span class="hl-1">, </span><span class="hl-0">true</span><span class="hl-1">);</span>
+</code></pre>
+<p>This would enable the option of using a license image that is hosted on another server i.e. originates from another domain than the one the web app is hosted on, such as a CDN for example.</p>
+<blockquote>
+<p><strong>Note</strong>: The server hosting the licensing image also needs to be configured to allow CORS for it.</p>
+</blockquote>
+<ul>
+<li>License status (if invalid, expired or invalid domain) will be provided in e.detail of the scannerModuleLoaded event, see <a href="#subscribing-to-scannermoduleloaded-event">Subscribing to scannerModuleLoaded event</a> in the Configuration section.
+<br><br> Possible values:<ul>
+<li>&quot;Scanner is ready.&quot;</li>
+<li>&quot;Invalid domain.&quot;</li>
+<li>&quot;Invalid license.&quot;</li>
+<li>&quot;Expired license.&quot;</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: Regardless of string value the scanner is ready once the scannerModuleEvent has fired (results will be masked if not licensed).</p>
+</blockquote>
+<ul>
+<li>
+<a href="#obtaining-and-configuring-a-license" id="obtaining-and-configuring-a-license" style="color: inherit; text-decoration: none;">
+  <h5>Obtaining and configuring a license</h5>
+</a>
+</li>
+</ul>
+<p>Request a license on <a href="https://cmbdn.cognex.com/lpr">https://cmbdn.cognex.com/lpr</a>.</p>
+<p>After clicking request license and selecting CMBWEB/Wasm License, the site navigates to the WASM License Purchase Request page where a license can be created by generating a small image from the provided information, such as:</p>
+<ul>
+<li>the type of license evaluation / commercial / non-production / production</li>
+<li>the licensing period – usually preset by type</li>
+<li>domain(s) / host(s) the web sdk will run on. Instead of a regular domain, a wildcard host or an IP address can be used in specific use cases.<blockquote>
+<p><strong>Note</strong>: A custom logo can be uploaded to be used instead of the default Cognex logo.</p>
+</blockquote>
+</li>
+</ul>
+<p>The generated image serves as a carrier for the licensing information.</p>
+<blockquote>
+<p><strong>Note</strong>: Unless otherwise specified, browsers cache these resources, and upon an eventual license upgrade you will need to ensure you&#39;re getting the new image (and not the cached one). The simplest way is to use a different name, possibly with a version number.</p>
+</blockquote>
+
+<a href="#sample-app" id="sample-app" style="color: inherit; text-decoration: none;">
+  <h2>Sample app</h2>
+</a>
+<p>Each variant comes with a sampleApp directory, which makes use of the cmbWeb SDK.</p>
+<p>Files specific to the sample app are:</p>
+<ul>
+<li>index.html</li>
+<li>sample_app_UI.js</li>
+<li>sample-app-style.css</li>
+<li>icon-sprite.svg</li>
+<li>MWBConfig_wa.js</li>
+</ul>
+<p>There are slight differences in what index.html includes and in how MWBConfig_wa.js carries out the configuration, specific to each variant, but other than that, the content of the sample app is identical for all.</p>
+<blockquote>
+<p><strong>Note</strong>: if you are using webpack or webpack inline, you&#39;ll need to replace the src/MWBConfig_wa.js file with sampleApp/MWBConfig_wa.js and re-build so that the sample app&#39;s config file is used in the built bundle.js file.</p>
+</blockquote>
+<blockquote>
+<p><strong>Note</strong>: the MWBConfig_wa.js file uses the optional chaining operator (?.) which has recently gained <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining#browser_compatibility">support</a> in all browsers. </p>
+</blockquote>
+<p>When it comes to what most will be of interest for utilizing cmbWeb, you can check out the following files:</p>
+<ul>
+<li>index.html                  - Has static UI buttons and basic API usage</li>
+<li>sample_app_UI.js              - Dynamically fills the page with UI elements for configuring the scanner </li>
+<li>MWBConfig_wa.js              - Makes use of stored configuration values set by UI elements (see sample_app_UI.js)</li>
+</ul>
+<p>For taking a closer look at the sample_app_UI.js file, you can skip the GUI_helper object and check out the event listener method for the &quot;scannerModuleLoaded&quot; event, as well as the add_gui_controls method.</p>
+
+<a href="#performance-and-browser-support" id="performance-and-browser-support" style="color: inherit; text-decoration: none;">
+  <h2>Performance and Browser Support</h2>
+</a>
+<p>As described in previous sections, WebAssembly makes CPU intensive execution at near-native speeds available on the client-side. This means that the performance of the device in question can be limited by its hardware capabilities. In general, the decoding speed is faster on desktop computers and slower on mobile devices. Browser support for various features tends to favor desktop versions as well.</p>
+<p>Currently, the best browser support is provided by Google Chrome. Other browsers do well in general, with some known differences at this time:</p>
+<ul>
+<li><p>Firefox offers camera choice regardless of whether the front/back camera was specified. Firefox also has no flash/zoom API support.</p>
+</li>
+<li><p>Safari requires an additional user click to start the camera/video for the first time and does not keep the choice for future page access. Safari also has no flash/zoom API support.</p>
+<ul>
+<li>All execution on Safari on iOS is on the main thread. This happens because the decoder is the part that uses the CPU the most, it can compete with the camera preview, and the user would end up with a lot of lag.</li>
+</ul>
+</li>
+</ul>
+<p>You can improve Safari iOS performance in the following ways:</p>
+<ul>
+<li>Use of dpsLimit value decodes per second, meaning the number of frames that are sent for decoding in a given second, is recommended, such as 1 or 2 at the most. In realistic use cases, there is no practical need for a higher decoding rate, even on devices that are capable of such performance.</li>
+<li>Limit symbologies to only the ones needed. With single symbology decoding, for example just QR code decoding, there might be no lag and stutter noticeable, even though it is on the same thread.</li>
+<li>Using a lower effort level for the decoder, and/or a lower camera resolution can also help reduce lag and stutter produced by CPU overuse.</li>
+</ul>
+<p>Example configuration for improving performance on iOS Safari:</p>
+<pre><code class="language-js"><span class="hl-1">    {</span><span class="hl-5">&quot;method&quot;</span><span class="hl-1"> : </span><span class="hl-5">&quot;MWBsetDpsLimit&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-1"> : [</span><span class="hl-6">1</span><span class="hl-1">]},</span><br/><span class="hl-1">    {</span><span class="hl-5">&quot;method&quot;</span><span class="hl-1"> : </span><span class="hl-5">&quot;MWBsetActiveCodes&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-1"> : [ </span><span class="hl-3">mw_c</span><span class="hl-1">.</span><span class="hl-14">MWB_CODE_MASK_QR</span><span class="hl-1"> ]},</span><br/><span class="hl-1">    {</span><span class="hl-5">&quot;method&quot;</span><span class="hl-1"> : </span><span class="hl-5">&quot;MWBsetLevel&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-1"> : [</span><span class="hl-6">1</span><span class="hl-1">]},</span><br/><span class="hl-1">    {</span><span class="hl-5">&quot;method&quot;</span><span class="hl-1"> : </span><span class="hl-5">&quot;MWBenableHiRes&quot;</span><span class="hl-1">, </span><span class="hl-5">&quot;value&quot;</span><span class="hl-1"> : [</span><span class="hl-0">false</span><span class="hl-1">]}</span>
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Some codes like PDF require a higher effort level and can have detail which cannot be captured with lower camera resolution. Consider these capture limitations, when choosing between 480p, 720p (default) or 1080p for demanding barcodes.</p>
+</blockquote>
+<p>The APIs that different browsers provide may differ in other ways, however, we aim to mitigate differences as much as possible to provide a consistent experience across different platforms.</p>
+<ul>
+<li>
+<a href="#web-vs-native-performance" id="web-vs-native-performance" style="color: inherit; text-decoration: none;">
+  <h5>Web vs native performance</h5>
+</a>
+</li>
+</ul>
+<p>When it comes to using a web or a native SDK, both can scan with similar performance but a native solution (android or iOS SDK) is slightly better because natively there is a slightly better camera focus, and that affects the scan the most.</p>
+<p>For the most part, this slight difference in camera focus won&#39;t be an issue, but, depending on your use case, such as cases where your code has a high density, it might take more time to scan compared to a native solution.</p>
+<p>In such demanding cases, you might do fine with either 720p or 1080p resolution, but your camera must have auto-focus otherwise you&#39;ll have a hard time getting a clear frame and a successful scan. If not, then maybe a better barcode sample with a larger size might offset the lack of camera quality.</p>
+<p>In general, while higher-end mobile devices are better, there is no limit to how low-end you can go with a particular mobile device, again, as long as it has a good enough camera with autofocus (of course you should test for your use case to see how suitable it is).</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-type-alias"><a href="modules.html#MyCallback" class="tsd-kind-icon">My<wbr/>Callback</a></li><li class="tsd-kind-function"><a href="modules.html#myScannerReadyEventListener" class="tsd-kind-icon">my<wbr/>Scanner<wbr/>Ready<wbr/>Event<wbr/>Listener</a></li><li class="tsd-kind-function"><a href="modules.html#myCameraReadyEventListener" class="tsd-kind-icon">my<wbr/>Camera<wbr/>Ready<wbr/>Event<wbr/>Listener</a></li><li class="tsd-kind-function"><a href="modules.html#myCameraPreviewClosedEventListener" class="tsd-kind-icon">my<wbr/>Camera<wbr/>Preview<wbr/>Closed<wbr/>Event<wbr/>Listener</a></li><li class="tsd-kind-interface"><a href="interfaces/BarcodeScanner.html" class="tsd-kind-icon">Barcode<wbr/>Scanner</a></li><li class="tsd-kind-interface"><a href="interfaces/mwbScanner.html" class="tsd-kind-icon">mwb<wbr/>Scanner</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
